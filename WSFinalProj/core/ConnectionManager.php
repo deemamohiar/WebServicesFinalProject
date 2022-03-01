@@ -16,6 +16,8 @@ class ConnectionManager {
 		$this->user = $config->user;
 		$this->password = $config->password;
 		$this->dbname = $config->dbname;
+		
+		$this->getConnection();
 	}
 
 	function getConnection() {
