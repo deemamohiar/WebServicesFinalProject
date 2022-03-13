@@ -37,14 +37,14 @@
 
         public function get() {
             // TBD
-            // switch ($this->request->header['accept']) {
-            //     case 'application/json':
-            //         $responsePayload = json_encode($this->controller->getData());
-            //         echo $responsePayload;
-            //         break;
+            switch ($this->request->header['accept']) {
+                case 'application/json':
+                    $responsePayload = json_encode($this->controller->index());
+                    // echo $responsePayload;
+                    break;
 
-            //     // handle other formats
-            // }
+                // handle other formats
+            }
         }
 
         public function post() {
