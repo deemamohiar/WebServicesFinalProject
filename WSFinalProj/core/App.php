@@ -4,8 +4,8 @@ namespace WSFinalProj\core;
 
 class App {
 
-	private $controller = 'WSFinalProj\controllers\ConversionController';
-	private $method = 'index';
+	private $controller = 'WSFinalProj\client\controllers\ClientController';
+	private $method = 'login';
 	private $param = [];
 
 	public function __construct() {
