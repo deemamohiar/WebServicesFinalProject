@@ -1,4 +1,4 @@
 <?php
-include('WSFinalProj/init.php');
+include('Client/init.php');
 
-new \WSFinalProj\core\App();
+new \Client\core\App();

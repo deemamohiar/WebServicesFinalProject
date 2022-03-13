@@ -1,2 +1,2 @@
-<?php
+<?php 
 include('core/autoload.php');

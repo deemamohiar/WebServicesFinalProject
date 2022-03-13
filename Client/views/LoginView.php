@@ -13,7 +13,7 @@
     }
     ?>
 
-    <a href="/UserController/register">New User? Click to Register Here!</a>
+    <a href="/ClientController/register">No Account? Sign Up Here!</a>
 
     <center class="main">
         <h1>Login</h1> 
