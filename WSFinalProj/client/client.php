@@ -4,17 +4,17 @@
     // reference, it's just in the meantime while we want
     // to do some testing 
 
-	$ch = curl_init();
+	$curl = curl_init();
 	
-	curl_setopt($ch, CURLOPT_URL, "http://localhost/WSFinalProj/api/index.php?all");
+	curl_setopt($curl, CURLOPT_URL, "http://localhost/WSFinalProj/api/index.php?all");
 	
 	$requestheaders = ['accept: application/json'];
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $requestheaders);
+	curl_setopt($curl, CURLOPT_HTTPHEADER, $requestheaders);
 	
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	
-	$responsedata = curl_exec($ch);	
+	$responsedata = curl_exec($curl);	
 	echo $responsedata;
 
-	curl_close($ch);
+	curl_close($curl);
 ?>
