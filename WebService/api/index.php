@@ -2,8 +2,6 @@
 
     namespace WebServicesFinalProject\WebService\api;
 
-    // require_once(dirname(__DIR__) . "\\api\\http\\RequestBuilder.php");
-
     require_once(dirname(__DIR__) . "\\api\\http\\RequestBuilder.php");
 
     use WebServicesFinalProject\WebService\api\http\RequestBuilder;
@@ -42,7 +40,15 @@
 
         public function get() {
             // TBD
-            $responsePayload = json_encode($this->controller->index());
+
+            // check if user inputted anything or not
+            if(!isset($this->request->header['Value']) && $this->controller != 'all') {
+                echo "<h1 style='color:red; text-align:center;'>No results found. Please try again with a different input.</h1>";
+                echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
+                return;
+            }
+            $userInput = $this->request->header['Value'];
+            $responsePayload = json_encode($this->controller->index($userInput));
             // echo $responsePayload;
             // $requestPayload = file_get_contents('php://input');
         }
