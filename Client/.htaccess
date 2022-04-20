@@ -2,7 +2,7 @@ Options -Multiviews
 
 RewriteEngine On
 
-RewriteBase /Client
+RewriteBase /WebServicesFinalProject/Client
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -1,8 +1,8 @@
 <?php
-namespace Client\core;
+namespace WebServicesFinalProject\Client\core;
 
 class Controller {
 	protected function view($viewName, $data=null) {
-		include('Client/views/'. $viewName . '.php');
+		include('views/'. $viewName . '.php');
 	}
 }

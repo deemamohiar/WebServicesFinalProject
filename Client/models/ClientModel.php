@@ -1,8 +1,10 @@
 <?php 
 
-namespace Client\models;
+namespace WebServicesFinalProject\Client\models;
 
-class ClientModel extends \Client\core\ConnectionManager {
+require("C:\\xampp\\htdocs\\WebServicesFinalProject\\Client\\core\\ConnectionManager.php");
+
+class ClientModel extends \core\ConnectionManager {
 
     public $clientName;
     public $email;
@@ -39,8 +41,9 @@ class ClientModel extends \Client\core\ConnectionManager {
         $SQL = "SELECT * FROM client WHERE email = :email";
         $statement = self::$_connection->prepare($SQL);
         $statement->execute(['email'=>$email]);
-        $statement->setFetchMode(\PDO::FETCH_CLASS, 'Client\\models\\ClientModel');
-		return $statement->fetch();
+        $statement->setFetchMode(\PDO::FETCH_CLASS, 
+        'WebServicesFinalProject\\Client\\models\\ClientModel');
+        return $statement->fetch();
     }
 
     // Check if account exists

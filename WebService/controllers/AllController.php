@@ -17,7 +17,7 @@ class AllController {
         for ($i = 0; $i < strlen($response); $i++) {
             if ($response[$i] == "{") {
                 echo "<br>";
-            }+
+            }
             if ($response[$i] == "},") {
                 echo "\n\r";
             }

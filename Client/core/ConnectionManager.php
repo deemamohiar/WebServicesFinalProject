@@ -1,16 +1,16 @@
 <?php
 
-namespace Client\core;
+namespace core;
 
 class ConnectionManager {
-	protected static $_connection;
+	protected static $_connection = null;
 	private $host;
 	private $user;
 	private $password;
 	private $dbname;
 
 	public function __construct() {
-		$config = simplexml_load_file(dirname(__DIR__).'/database/config.xml');
+		$config = simplexml_load_file(dirname(__DIR__).'/core/config.xml');
 
 		$this->host = $config->host;
 		$this->user = $config->user;

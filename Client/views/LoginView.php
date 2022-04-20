@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="../css/login-style.css">
 </head>
 <body>
-    <a href="/ClientController/register">No Account? Sign Up Here!</a>
+    <a href="/WebServicesFinalProject/Client/ClientController/register">No Account? Sign Up Here!</a>
 
     <h1>L&D Country Lookup</h1>
     <center class="main">

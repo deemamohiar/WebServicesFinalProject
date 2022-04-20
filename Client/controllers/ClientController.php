@@ -1,19 +1,24 @@
 <?php
-	namespace Client\controllers;
+	namespace controllers;
+	require("C:\\xampp\\htdocs\\WebServicesFinalProject\\Client\\core\\Controller.php");
+	require("C:\\xampp\\htdocs\\WebServicesFinalProject\\Client\\models\\ClientModel.php");
+
 	use DateTime;
 
-	class ClientController extends \Client\core\Controller {
+	class ClientController extends \WebServicesFinalProject\Client\core\Controller {
+		
 		public function login() {
 			if (isset($_POST['loginB'])) {
 				// to check if credentials correspond to a client
-				$client = new \Client\models\ClientModel();
+				$client = new \WebServicesFinalProject\Client\models\ClientModel();
 				$client = $client->getByEmail($_POST['email']);
    
 			   // check if credentials are also valid
 			   if($client != false && password_verify($_POST['password'], $client->passwordHash) ) {
 				   $_SESSION['clientID'] = $client->clientID;
-				   header('location:/ClientController/index');
-			   }
+				   $this->index();
+				   //header('location:/ClientController/index');
+				}
    
 			   // if credentials are invalid, send error message
 			   else {
@@ -42,7 +47,7 @@
 					return;
 				}
 		
-				$client = new \Client\models\ClientModel();
+				$client = new \WebServicesFinalProject\Client\models\ClientModel();
 		
 				// Verify that account doesn't already exist
 				$clientExists = $client->emailExists($_POST['email']);
