@@ -2,7 +2,7 @@
 
 class AllController {
     // input parameter will not be used in this controller, but is needed for every other one
-    public function index($input) {
+    public function index($input = null) {
         // $requestPayload = file_get_contents('php://input'); 
         // echo $requestPayload;      
         $url = 'https://restcountries.com/v3.1/all';

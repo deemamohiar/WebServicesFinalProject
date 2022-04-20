@@ -3,7 +3,7 @@
 class CapitalController {
     public function index($userInput) {
 
-        $url = "https://restcountries.com/v3.1/name/$userInput";
+        $url = "https://restcountries.com/v3.1/capital/$userInput";
 
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
