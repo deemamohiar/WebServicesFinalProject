@@ -1,5 +1,86 @@
 body {
-    background-image: url("images/collage.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+  /* background-image: url("images/collage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover; */
+  background-color: #005295;
+}
+
+.main {
+  margin: 30px;
+  height: 620px;
+  padding-top: 10px;
+  /* padding-bottom: 40px; */
+
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 3px #000000;
+  border-radius: 2%;
+}
+
+h1 {
+  text-align: center;
+  font-family: "Verdana";
+  font-size: 70px;
+  color: white;
+  text-shadow: 2px 2px 10px #7cc4fe;
+}
+
+h3 {
+  font-family: "Verdana";
+  font-size: 25px;
+  color: white;
+  text-shadow: 0 0 3px #000000;
+
+  width: 600px;
+  padding-bottom: 10px;
+}
+
+#search {
+  margin-top: 50px;
+}
+
+th {
+  text-align: center;
+  font-family: "Verdana";
+  font-size: 20px;
+  color: white;
+  text-shadow: 0px 0px 3px #000000;
+}
+
+select {
+  text-align: center;
+  font-family: "Verdana";
+  font-size: 17px;
+  color: black;
+  text-shadow: 0px 0px 1px #7cc4fe;
+}
+
+input {
+  text-align: center;
+  font-family: "Verdana";
+  font-size: 17px;
+  color: black;
+  text-shadow: 0px 0px 1px #7cc4fe;
+}
+
+#submit {
+  background-color: white;
+  border-radius: 10%;
+  margin-top: 20px;
+  padding: 10px 20px;
+
+  font-family: "Verdana";
+  font-size: 18px;
+  color: black;
+  text-shadow: 0px 0px 3px #a8d8ff;
+}
+
+#logout {
+  background-color: white;
+  border-radius: 10%;
+  padding: 5px;
+
+  font-family: "Verdana";
+  font-size: 12px;
+  color: black;
+  text-shadow: 0px 0px 3px #a8d8ff;
+}
