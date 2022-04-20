@@ -2,10 +2,10 @@
 <head>
     <title>Register</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/register-style.css">
+    <link rel="stylesheet" type="text/css" href="/WebServicesFinalProject/css/register-style.css">
 </head>
 <body>
-    <a href="/ClientController/login">Already have an account? Login Here!</a>
+    <a href="/WebServicesFinalProject/Client/ClientController/login">Already have an account? Login Here!</a>
     
     <h1>Register</h1> 
 

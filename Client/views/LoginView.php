@@ -2,7 +2,7 @@
 <head>
     <title>Login</title>
 
-    <link rel="stylesheet" type="text/css" href="../css/login-style.css">
+    <link rel="stylesheet" type="text/css" href="/WebServicesFinalProject/css/login-style.css">
 </head>
 <body>
     <a href="/WebServicesFinalProject/Client/ClientController/register">No Account? Sign Up Here!</a>

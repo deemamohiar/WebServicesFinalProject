@@ -1,14 +1,14 @@
 <html>
     <head>
         <title>Home</title>
-        <link rel="stylesheet" type="text/css" href="../css/home-style.css">
+        <link rel="stylesheet" type="text/css" href="/WebServicesFinalProject/css/home-style.css">
     </head>
     <body>
         <table>
             <tr>
             <td style="width:10%; text-align:left;">
                 <td style="width:1%; text-align:right;">
-                    <form action="/ClientController/logout">
+                    <form action="/WebServicesFinalProject/Client/ClientController/logout">
                         <input id='logout' type="submit" value="Logout" style="float: right;">
                     </form>
                 </td>

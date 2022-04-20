@@ -16,7 +16,7 @@
 			   // check if credentials are also valid
 			   if($client != false && password_verify($_POST['password'], $client->passwordHash) ) {
 				   $_SESSION['clientID'] = $client->clientID;
-				   $this->index();
+				   header('location: /WebServicesFinalProject/Client/ClientController/index');
 				   //header('location:/ClientController/index');
 				}
    
@@ -77,7 +77,7 @@
 				
 				echo '<script type="text/javascript">'; 
 				echo 'alert("Account created successfully! Please log in.");';
-				echo "window.location.href = '/ClientController/login';";
+				echo "window.location.href = '/WebServicesFinalProject/Client/ClientController/login';";
 				echo '</script>';
 			} else {
 				$this->view('RegisterView'); 
@@ -86,7 +86,8 @@
 
 		public function logout() {
 			session_destroy();
-			header('location:/ClientController/login');
+			header('location:/WebServicesFinalProject/Client/ClientController/login');
+			//header('location:/ClientController/login');
 		}
 
 		public function index() {
@@ -136,7 +137,7 @@
 				// it's staying at ClientController instead of going to api/index.php
 
 				// Connect with Web Service using the user data
-				$url = "http://localhost/WebService/api/$category/";
+				$url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
 
 				$requestHeaders = ['Accept: application/json',
 								   'Content-Type: application/json', 

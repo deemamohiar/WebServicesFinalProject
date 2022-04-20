@@ -1,5 +1,10 @@
 <?php 
-    require_once("request.php");
+
+namespace WebServicesFinalProject\WebService\api\http;
+
+use WebServicesFinalProject\WebService\api\http\Request;
+
+require_once("Request.php");
 
     class RequestBuilder {
         private $request;
