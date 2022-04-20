@@ -17,14 +17,12 @@
 
             // Get the params from URL
             $keys = array_keys($this->request->urlParams);
-            
             // Determine which controller to load based on URL params
             if (file_exists(dirname(__DIR__) . '/controllers/' . $keys[0] . 'Controller.php')) {
                 if (class_exists($keys[0] . 'Controller')) {
                     $this->controller = new ($keys[0] . 'Controller');
-
                     switch ($this->request->method) {
-                        case 'GET': 
+                        case 'GET':      
                             $this->get();
                             break;
                         case 'POST':
@@ -37,7 +35,6 @@
 
         public function get() {
             // TBD
-            echo "jhr";
             $responsePayload = json_encode($this->controller->index());
             // echo $responsePayload;
             // $requestPayload = file_get_contents('php://input');
@@ -45,6 +42,7 @@
 
         public function post() {
             // not implemented
+            echo "wtf";
         }
     }
 

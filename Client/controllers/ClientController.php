@@ -131,30 +131,32 @@
 				// it's staying at ClientController instead of going to api/index.php
 
 				// Connect with Web Service using the user data
-				// $url = "http://localhost/WebService/api/index.php?" . $category;
-				// $requestheaders = ['Accept: application/json',
-				// 				   'Content-Type: application/json',
-				// 				   "Location: $url"];
+				$url = "http://localhost/WebService/api/$category/";
+
+				$requestHeaders = ['Accept: application/json',
+								   'Content-Type: application/json', 
+								   "Value: $value"];
 				// $data = ['category' => $category, 
 				// 		 'value' => $value];
 
-				// $curl = curl_init();
+				$curl = curl_init();
 
-				// curl_setopt($curl, CURLOPT_URL, $url);
-				// curl_setopt($curl, CURLOPT_HTTPHEADER, $requestheaders);
-				// // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
+				// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 				// curl_setopt($curl, CURLOPT_POST, true);
-				// // curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+				// curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
 				// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
 				// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-				// $responseData = curl_exec($curl);
-				// echo $responseData;
+				$responseData = curl_exec($curl);
+				echo $responseData;
 
-				// curl_close($curl);
+				curl_close($curl);
 
 				// This is a temporary solution until I figure out curl
-				header('location: /WebService/api/index.php?' . $category . '?' . $value);
+				// header('location: /WebService/api/index.php?' . $category . '?' . $value);
 			} else {
 				$this->view('HomeView');
 			}

@@ -2,15 +2,9 @@
     <head>
         <title>Home</title>
         <meta charset="utf-8">
-        <!-- <link rel="stylesheet" type="text/css" href="../LDHospital/css/patientBookApt-style.css"> -->
+        <link rel="stylesheet" type="text/css" href="../css/home-style.css">
     </head>
     <body>
-        <!-- <style type="text/css">
-            th {text-align:center;}
-		    td {text-align:center;}
-            option {text-align: center;}
-		</style> -->
-        
         <table>
             <tr>
             <td style="width:10%; text-align:left;">
