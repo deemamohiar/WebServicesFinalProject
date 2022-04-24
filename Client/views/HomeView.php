@@ -33,7 +33,7 @@
                     </tr>
                     <tr style="height: 30px;">
                         <td>
-                            <select name="category">
+                            <select name="category" id="category" >
                                 <option disabled>--Select a Category--</option>
                                 <option>All Country Data</option>
                                 <option>Country Name</option>
@@ -49,13 +49,34 @@
                             </select>
                         </td>
                         <td>
-                            <input type='text' name='value'>
+                            <input type='text' name='value' id='value' disabled=true>
                         </td>
+
+                        <!-- Enable / disable input based on category selected -->
+                        <script>
+                            var select = document.getElementById("category");
+                            document.getElementById("category").addEventListener('change', function() {
+                                console.log(this.value);
+                                if (this.value != 'All Country Data') {
+                                    document.getElementById("value").disabled = false;
+                                }
+                                else {
+                                    document.getElementById("value").disabled = true;
+                                }
+                            });
+                        </script> 
                     </tr>
                 </table>
 
                 <br><br>
                 <input id='submit' type='submit' name='searchB' value='Search'>
+                <?php 
+                    if ($data != null) {
+                        if (!empty($data)) {
+                            echo "<p id='error' style='color:red;'>$data</p><br>";
+                        }
+                    }
+                ?>
             </form>
         </center>
     </body>

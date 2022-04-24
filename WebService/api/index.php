@@ -42,11 +42,11 @@
             // TBD
 
             // check if user inputted anything or not
-            if(!isset($this->request->header['Value']) && get_class($this->controller) != 'AllController') {
-                echo "<h1 style='color:red; text-align:center;'>No results found. Please try again with a different input.</h1>";
-                echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
-                return;
-            }
+            // if(!isset($this->request->header['Value']) && get_class($this->controller) != 'AllController') {
+            //     echo "<h1 style='color:red; text-align:center;'>No results found. Please try again with a different input.</h1>";
+            //     echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
+            //     return;
+            // }
             if(get_class($this->controller) == 'AllController') {
                 json_encode($this->controller->index());
             }

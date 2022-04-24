@@ -92,9 +92,26 @@
 
 		public function index() {
 			if (isset($_POST['searchB'])) {
+				// ---------------------- FIRST REQUEST -------------------
+				
+				// First, make sure client has a APIKey & valid license number 
+
+
+
+				// ---------------------- SECOND REQUEST -------------------
+				
+				// Second make sure value was written if category is not "All Country Data"
+				if (($_POST['category'] != 'All Country Data') && ($_POST['value'] == '')) {
+					$errorMessage = "Please input a value.";
+					$this->view('HomeView', $errorMessage);
+					return;
+				}
+
 				// Start by storing the user data so it can be sent to web service
 				$category = $_POST['category'];
-				$value = $_POST['value'];
+				if (isset($_POST['value'])) {
+					$value = $_POST['value'];
+				}
 
 				// Update certain category names to match a controller in Web Service
 				// In certain cases, also update "value" to match API formatting
@@ -131,17 +148,19 @@
 						break;
 				}
 
-				// ARE WE SUPPOSED TO USE CURL HERE OR NOT WTF
-				// So here's the thing, I think we are, but I don't understand
-				// how to use curl to follow location, because right now
-				// it's staying at ClientController instead of going to api/index.php
-
 				// Connect with Web Service using the user data
 				$url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
-
-				$requestHeaders = ['Accept: application/json',
-								   'Content-Type: application/json', 
-								   "Value: $value"];
+				if (isset($value)) {
+					$requestHeaders = ['Accept: application/json',
+						'Content-Type: application/json', 
+						"Value: $value"];
+				}
+				else {
+					$requestHeaders = ['Accept: application/json',
+						'Content-Type: application/json', 
+						"Value: "];
+				}
+				
 				// $data = ['category' => $category, 
 				// 		 'value' => $value];
 
