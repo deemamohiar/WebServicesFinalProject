@@ -31,8 +31,8 @@
                             $this->get();
                             break;
                         case 'POST':
-                            $this->post();
-                            break;
+                            $this->post($keys[0]);
+							break;
                     }
                 }
 			}
@@ -47,7 +47,7 @@
             //     echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
             //     return;
             // }
-            if(get_class($this->controller) == 'AllController') {
+            if (get_class($this->controller) == 'AllController') {
                 json_encode($this->controller->index());
             }
             else {
@@ -58,9 +58,12 @@
             // $requestPayload = file_get_contents('php://input');
         }
 
-        public function post() {
-            // not implemented
-            echo "wtf";
+        public function post($controllerName) {
+            switch ($controllerName) {
+				case "auth":
+					$token = $this->controller->authenticateClient();
+					break;
+			}
         }
 
         

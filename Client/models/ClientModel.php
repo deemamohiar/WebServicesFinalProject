@@ -53,4 +53,14 @@ class ClientModel extends \core\ConnectionManager {
         $statement->execute(['email'=>$email]);
         return $statement->fetch();
     }
+
+    // Retrieve client by id
+    public function getById($clientID) {
+        $SQL = "SELECT * FROM client WHERE clientID = :clientID";
+        $statement = self::$_connection->prepare($SQL);
+        $statement->execute(['clientID'=>$clientID]);
+        $statement->setFetchMode(\PDO::FETCH_CLASS, 
+                            'WebServicesFinalProject\\Client\\models\\ClientModel');
+        return $statement->fetch();
+    }
 }
