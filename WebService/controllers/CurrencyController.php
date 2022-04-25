@@ -27,10 +27,14 @@ class CurrencyController {
 
         // display error message if nothing was found
         if($response == $errorMessage) {
-            echo "<h1 style='color:red; text-align:center;'>No results found. Please try again with a different input.</h1>";
+            echo "<h1 style='color:red; text-align:center;'>No results found.</h1>";
+            echo "<h2 style='color:red; text-align:center;'>Please try again with a different input.</h2>";
             echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
             return;
         }
+
+        echo "<a style= 'text-decoration: none;' 'color: black;' 'text-shadow: 0px 0px 3px #a8d8ff;' 'font-family: Verdana;' 'font-size: 18px;' href='/WebServicesFinalProject/Client/ClientController/index'>Back to Home Page</a>";
+        echo "<br><br>";
 
         for ($i = 0; $i < strlen($response); $i++) {
             if ($response[$i] == "{") {
