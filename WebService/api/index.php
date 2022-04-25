@@ -40,15 +40,16 @@
 
             // get category chosen by user
             $_SESSION['category'] = $this->request->header['Category'];
+            $clientID = $this->request->header['ClientID'];
 
             // if user has chosen get all countries, no need to check for user input
             if ($_SESSION['category'] == 'all') {
-                json_encode($this->controller->index());
+                json_encode($this->controller->index($clientID));
             }
             // if user has selected anything else, get their input
             else {
                 $userInput = $this->request->header['Value'];
-                json_encode($this->controller->index($userInput));
+                json_encode($this->controller->index($clientID, $userInput));
             }
 
         }
@@ -60,15 +61,6 @@
 					break;
 			}
         }
-
-        public function debug_to_console($data) {
-            $output = $data;
-            if (is_array($output))
-                $output = implode(',', $output);
-        
-            echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-        }
-
     }
 
     $api = new API();

@@ -1,9 +1,20 @@
 <?php
 
+require("C:\\xampp\\htdocs\\WebServicesFinalProject\\WebService\\core\\Controller.php");
+require("C:\\xampp\\htdocs\\WebServicesFinalProject\\WebService\\models\\CountrySearchModel.php");
+
+/* 
+This controller takes care of the web server-side methods.
+It includes an index function where authentication is verified, as well as a
+getCountry function to match the client's request
+*/ 
 class CountrySearchController {
 
-    // input can be null for the case of all controller
-    public function index($input = null) {
+    /*
+    This function is to verify authentication
+    Input can be null for the case of all controller
+    */
+    public function index($clientID, $input = null) {
         // Start by checking if token exists
         $requestHeaders = apache_request_headers();
         if (!isset($requestHeaders['Authorization'])) {
@@ -19,15 +30,18 @@ class CountrySearchController {
         // if authentication has been completed successfully, move on to searching for country 
         // check if input has been sent from the client side and pass as a parameter accordingly
         if($input != null) {
-            $this->getCountry($input);
+            $this->getCountry($clientID, $input);
         }
         else {
-            $this->getCountry();
+            $this->getCountry($clientID);
         }
             
     }
 
-    public function getCountry($input = null) {
+    /*
+    This function is to get country information based on the client's request
+    */
+    public function getCountry( $clientID, $input = null) {
         // If it does, proceed
         $category = $_SESSION['category'];
 
@@ -72,7 +86,11 @@ class CountrySearchController {
                 break;
         }
 
-    
+        $newSearch = new \WebServicesFinalProject\WebService\models\CountrySearchModel();
+        $newSearch->clientID = $clientID;
+        $now = new DateTime();
+        $newSearch->searchDate = $now->format('Y-m-d H:i:s');
+
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         
@@ -102,15 +120,19 @@ class CountrySearchController {
             echo $response[$i];
         }
 
-        curl_close($curl);        
-    }
+        curl_close($curl);  
+        
+        $now = new DateTime();
+        $newSearch->searchCompletionDate = $now->format('Y-m-d H:i:s');
 
-    public function debug_to_console($data) {
-        $output = $data;
-        if (is_array($output))
-            $output = implode(',', $output);
-    
-        echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-    }
+        // only store the user input if anything was inputted (dont if get all countries was selected)
+        if($input != null) {
+            $newSearch->userInput = $input;
+        }
 
+        $newSearch->searchResult = $response;
+
+        $newSearch->insert();
+
+    }
 }
