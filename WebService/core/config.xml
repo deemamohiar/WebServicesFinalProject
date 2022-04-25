@@ -3,5 +3,5 @@
     <host>localhost</host>
     <user>root</user>
     <password></password>
-    <dbname>assignment1</dbname>
+    <dbname>wsfinalproj</dbname>
 </dbconnection>
