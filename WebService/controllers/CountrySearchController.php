@@ -110,19 +110,7 @@ class CountrySearchController {
         echo "<a style= 'text-decoration: none;' 'color: black;' 'text-shadow: 0px 0px 3px #a8d8ff;' 'font-family: Verdana;' 'font-size: 18px;' href='/WebServicesFinalProject/Client/ClientController/index'>Back to Home Page</a>";
         echo "<br><br>";
 
-        // for ($i = 0; $i < strlen($response); $i++) {
-        //     if ($response[$i] == "{") {
-        //         echo "<br>";
-        //     }
-        //     if ($response[$i] == "},") {
-        //         echo "\n\r";
-        //     }
-        //     echo $response[$i];
-        // }
-
-        // echo $response;
         $responseArr = (array) json_decode($response,true);
-        // print_r($responseArr);
 
         // If there all multiple countries returned
         if (!isset($responseArr['name'])) {
