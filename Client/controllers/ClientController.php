@@ -152,7 +152,9 @@
 					$token = substr($authenticatorValue, 8);
 				}
 				else {
-					$errorMessage = "You are not authorized to use this service. Please check your API key and license validity and try again.";
+					$errorMessage = "You are not authorized to use this service. 
+					Please check your API key and license validity and try again.";
+					
 					$this->view('HomeView', $errorMessage);
 					return;
 				}
@@ -183,15 +185,18 @@
 						break;
 					
 					case 'Full Country Name':
-						$category = 'name';
+						$category = 'fullname';
 						break;
 					
 					case 'Country Code':
-						$category = 'alpha';
+						$category = 'code';
 						break;
 					
 					case 'List of Country Codes':
-						$category = 'alpha';
+						$category = 'listCodes';
+						break;
+					case 'Currency':
+						$category = 'currency';
 						break;
 					
 					case 'Language':
@@ -201,21 +206,34 @@
 					case 'Capital City':
 						$category = 'capital';
 						break;
+
+					case 'Region':
+						$category = 'region';
+						break;
+
+					case 'Subregion':
+						$category = 'subregion';
+						break;
+
+					case 'Demonym':
+						$category = 'demonym';
+						break;
 				}
 
 				// Connect with Web Service using the user data
-				$url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
+				$url = "http://localhost/WebServicesFinalProject/WebService/api/CountrySearch/";
 				if (isset($value)) {
 					$requestHeaders = ['Accept: application/json',
 						'Content-Type: application/json',
 						"Authorization: Bearer $token", 
+						"Category: $category",
 						"Value: $value"];
 				}
 				else {
 					$requestHeaders = ['Accept: application/json',
 						'Content-Type: application/json', 
 						"Authorization: Bearer $token",
-						"Value: "];
+						"Category: $category"];
 				}
 				
 				// // $data = ['category' => $category, 
@@ -225,11 +243,6 @@
 
 				curl_setopt($curl, CURLOPT_URL, $url);
 				curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
-				// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				// curl_setopt($curl, CURLOPT_POST, true);
-				// curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-				// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-				// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
 				$responseData = curl_exec($curl);
@@ -240,5 +253,12 @@
 				$this->view('HomeView');
 			}
 		}
+		public function debug_to_console($data) {
+            $output = $data;
+            if (is_array($output))
+                $output = implode(',', $output);
+        
+            echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
+        }
 	}
 ?>
