@@ -70,7 +70,7 @@
                                 }
                                 else if (this.value == 'Full Country Name') {
                                     document.getElementById("value").disabled = false;
-                                    document.getElementById("value").placeholder = "Ex: united states";
+                                    document.getElementById("value").placeholder = "Ex: canada";
                                     document.getElementById("value").value = "";
                                 }
                                 else if (this.value == 'Country Code') {
