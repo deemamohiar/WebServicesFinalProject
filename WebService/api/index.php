@@ -16,7 +16,6 @@
         function __construct() {
             $requestBuilder = new RequestBuilder();
             $this->request = $requestBuilder->getRequest();
-            $this->debug_to_console("lol");
 
             // Get the params from URL
             $keys = array_keys($this->request->urlParams);
@@ -24,6 +23,7 @@
             if (file_exists(dirname(__DIR__) . '/controllers/' . $keys[0] . 'Controller.php')) {
                 if (class_exists($keys[0] . 'Controller')) {
                     $this->controller = new ($keys[0] . 'Controller');
+                   
                     switch ($this->request->method) {
                         case 'GET':      
                             $this->get();
@@ -37,23 +37,20 @@
         }
 
         public function get() {
-            // TBD
 
-            // check if user inputted anything or not
-            // if(!isset($this->request->header['Value']) && get_class($this->controller) != 'AllController') {
-            //     echo "<h1 style='color:red; text-align:center;'>No results found. Please try again with a different input.</h1>";
-            //     echo "<a style='padding-left:47%; font-size: 25px;' href='/WebServicesFinalProject/Client/ClientController/index'>Search again</a>";
-            //     return;
-            // }
-            if (get_class($this->controller) == 'AllController') {
+            // get category chosen by user
+            $_SESSION['category'] = $this->request->header['Category'];
+
+            // if user has chosen get all countries, no need to check for user input
+            if ($_SESSION['category'] == 'all') {
                 json_encode($this->controller->index());
             }
+            // if user has selected anything else, get their input
             else {
                 $userInput = $this->request->header['Value'];
-                $responsePayload = json_encode($this->controller->index($userInput));
+                json_encode($this->controller->index($userInput));
             }
-            // echo $responsePayload;
-            // $requestPayload = file_get_contents('php://input');
+
         }
 
         public function post($controllerName) {
@@ -64,7 +61,6 @@
 			}
         }
 
-        
         public function debug_to_console($data) {
             $output = $data;
             if (is_array($output))
@@ -76,28 +72,5 @@
     }
 
     $api = new API();
-
-    // // These are for texting purposes
-    // echo "<br><br>";
-    // echo "Value: ";
-    // echo "<br>";
-    // echo "----------------------------";
-    // echo "<br>";
-    // print_r($api->request->urlParams);
-    // echo "<br><br>";
-
-    // echo "METHOD: ";
-    // echo "<br>";
-    // echo "----------------------------";
-    // echo "<br>";
-    // echo $api->request->method;
-    // echo "<br><br>";
-
-    // echo "HEADERS: ";
-    // echo "<br>";
-    // echo "----------------------------";
-    // echo "<br>";
-    // print_r($api->request->header);
-
  
 ?>
