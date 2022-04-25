@@ -6,30 +6,31 @@
 
     class AuthController {
         function authenticateClient($payload) {
-            print_r($payload);
-            // // Step 1: check if APIkey is valid
-            // $decodedBody = (array) json_decode($requestBody);
-            // $APIKey = $decodedBody['apiKey'];
+            // Step 1: check if API key / license number are valid
+            $decodedBody = (array) json_decode($payload);
+            $APIKey = $decodedBody['APIKey'];
+            $licenseNumber = $decodedBody['licenseNumber'];
+            $licenseEndDate = $decodedBody['licenseEndDate'];
 
-            // if ($APIKey != "apiKey123") {
-            //     echo "You are not authorized to make this request.";
-            //     return;
-            // }
+            echo $licenseEndDate;
+            $licenseEndDate = strtotime(date('Y-m-d H:i:s', strtotime($licenseEndDate)));
+            $currentDate = strtotime(date('Y-m-d H:i:s'));
+
+            if ($APIKey != "countrySearchKey" || $licenseNumber == "" || $currentDate > $licenseEndDate) {
+                // Stop from going further
+                return;
+            }
             
-            // // Step 2: if valid, create token
-            // // key, algorithm, max age, leeway
-            // $jwt = new JWT('secretKey', 'HS256', 3600, 10);
+            // Step 2: if everything is valid, create token
+            $jwt = new JWT('secretKey', 'HS256', 3600, 10);
 
-            // // Can use this for testing purposes (make token expired)
-            // // $jwt->setTestTimestamp(time() - 10000);
+            $payload = ['webService' => 'L&D Country Search',
+                        'clientLicenseNumber' => $licenseNumber,
+                        'expDate' => $licenseEndDate];
+            $token = $jwt->encode($payload);
 
-            // $payload = ['webServer' => 'TekCompany',
-            //             'use' => 'videoConversion',
-            //             'expDate' => '2022-12-31'];
-            // $token = $jwt->encode($payload);
-
-            // header("WWW-Authenticate: Bearer $token");
-            // return $token;
+            header("WWW-Authenticate: Bearer $token");
+            return $token;
         }
     }
 ?>

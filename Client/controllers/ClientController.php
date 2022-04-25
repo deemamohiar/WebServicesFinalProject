@@ -119,46 +119,43 @@
 			if (isset($_POST['searchB'])) {
 				// ---------------------- FIRST REQUEST -------------------
 				
-				// // First, make sure client has a APIKey & valid license number, and generate token
-				// $clientId = $_SESSION['clientID'];
-				// $client = new \WebServicesFinalProject\Client\models\ClientModel();
-				// $client = $client->getById($clientId);
+				// First, make sure client has a APIKey & valid license number, and generate token
+				$clientId = $_SESSION['clientID'];
+				$client = new \WebServicesFinalProject\Client\models\ClientModel();
+				$client = $client->getById($clientId);
 
-				// $clientData = ["APIKey" => $client->APIKey,
-				// 		"licenseNumber" => $client->licenseNumber,
-				// 		"licenseStartDate" => $client->licenseStartDate,
-				// 		"licenseEndDate" => $client->licenseEndDate];
-				// $jsonClientData = json_encode($clientData);
+				$clientData = ["APIKey" => $client->APIKey,
+						"licenseNumber" => $client->licenseNumber,
+						"licenseEndDate" => $client->licenseEndDate];
+				$jsonClientData = json_encode($clientData);
 
-				// $firstRequestHeaders = ['Content-type: application/json'];
-				// $ch = curl_init();
+				$firstRequestHeaders = ['Content-type: application/json'];
+				$ch = curl_init();
 
-				// // curl_setopt($ch, CURLOPT_URL, "http://localhost/webservice/api/index.php?auth");
-				// curl_setopt($ch, CURLOPT_URL, "http://localhost/webservice/api/all/");
-				// curl_setopt($ch, CURLOPT_HTTPHEADER, $firstRequestHeaders);	
-				// curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonClientData);
-				// curl_setopt($ch, CURLOPT_HEADER, true);
-				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_URL, "http://localhost/WebServicesFinalProject/WebService/api/auth/");
+				curl_setopt($ch, CURLOPT_HTTPHEADER, $firstRequestHeaders);	
+				curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonClientData);
+				curl_setopt($ch, CURLOPT_HEADER, true);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-				// $responseData = curl_exec($ch);
-				// echo $responseData;
-				// curl_close($ch);
+				$responseData = curl_exec($ch);
+				curl_close($ch);
 
-				// // // Capture response headers & token (remove "bearer" from header value)
-				// // $responseHeaderSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-				// // $responseHeaderStr = substr($responseData, 0, $responseHeaderSize);
+				// Capture response headers & token (remove "bearer" from header value)
+				$responseHeaderSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+				$responseHeaderStr = substr($responseData, 0, $responseHeaderSize);
 
-				// // $headerArray = $this->headersToArray($responseHeaderStr);
-
-				// // if (isset($headerArray['WWW-Authenticate'])) {
-				// // 	$authenticatorValue = $headerArray['WWW-Authenticate'];
-				// // 	$token = substr($authenticatorValue, 8);
-				// // }
-				// // else {
-				// // 	$errorMessage = "You do not have the appropriate authentication to use this service..";
-				// // 	$this->view('HomeView', $errorMessage);
-				// // 	return;
-				// // }
+				$headerArray = $this->headersToArray($responseHeaderStr);
+ 
+				if (isset($headerArray['WWW-Authenticate'])) {
+					$authenticatorValue = $headerArray['WWW-Authenticate'];
+					$token = substr($authenticatorValue, 8);
+				}
+				else {
+					$errorMessage = "You are not authorized to use this service. Please check your API key and license validity and try again.";
+					$this->view('HomeView', $errorMessage);
+					return;
+				}
 
 				
 
@@ -172,87 +169,87 @@
 				// echo $response;
 				// curl_close($ch);
 
-				// ---------------------- SECOND REQUEST -------------------
+				// // ---------------------- SECOND REQUEST -------------------
 				
-				// First make sure value was written if category is not "All Country Data"
-				if (($_POST['category'] != 'All Country Data') && ($_POST['value'] == '')) {
-					$errorMessage = "Please input a value.";
-					$this->view('HomeView', $errorMessage);
-					return;
-				}
+				// // First make sure value was written if category is not "All Country Data"
+				// if (($_POST['category'] != 'All Country Data') && ($_POST['value'] == '')) {
+				// 	$errorMessage = "Please input a value.";
+				// 	$this->view('HomeView', $errorMessage);
+				// 	return;
+				// }
 
-				// Then by storing the user data so it can be sent to web service
-				$category = $_POST['category'];
-				if (isset($_POST['value'])) {
-					$value = $_POST['value'];
-				}
+				// // Then by storing the user data so it can be sent to web service
+				// $category = $_POST['category'];
+				// if (isset($_POST['value'])) {
+				// 	$value = $_POST['value'];
+				// }
 
-				// Update certain category names to match a controller in Web Service
-				// In certain cases, also update "value" to match API formatting
-				switch ($category) {
-					case 'All Country Data':
-						$category = 'all';
-						break;
+				// // Update certain category names to match a controller in Web Service
+				// // In certain cases, also update "value" to match API formatting
+				// switch ($category) {
+				// 	case 'All Country Data':
+				// 		$category = 'all';
+				// 		break;
 					
-					case 'Country Name':
-						$category = 'name';
-						break;
+				// 	case 'Country Name':
+				// 		$category = 'name';
+				// 		break;
 					
-					case 'Full Country Name':
-						$category = 'name';
-						$value = $value . '?fullText=true';
-						break;
+				// 	case 'Full Country Name':
+				// 		$category = 'name';
+				// 		$value = $value . '?fullText=true';
+				// 		break;
 					
-					case 'Country Code':
-						$category = 'alpha';
-						break;
+				// 	case 'Country Code':
+				// 		$category = 'alpha';
+				// 		break;
 					
-					// ---------------TO DO LATER----------------
-					// case 'List of Country Codes':
-					// 	$category = 'alpha';
-					// 	$
-					// 	break;
+				// 	// ---------------TO DO LATER----------------
+				// 	// case 'List of Country Codes':
+				// 	// 	$category = 'alpha';
+				// 	// 	$
+				// 	// 	break;
 					
-					case 'Language':
-						$category = 'lang';
-						break;
+				// 	case 'Language':
+				// 		$category = 'lang';
+				// 		break;
 					
-					case 'Capital City':
-						$category = 'capital';
-						break;
-				}
+				// 	case 'Capital City':
+				// 		$category = 'capital';
+				// 		break;
+				// }
 
-				// Connect with Web Service using the user data
-				$url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
-				if (isset($value)) {
-					$requestHeaders = ['Accept: application/json',
-						'Content-Type: application/json', 
-						"Value: $value"];
-				}
-				else {
-					$requestHeaders = ['Accept: application/json',
-						'Content-Type: application/json', 
-						"Value: "];
-				}
+				// // Connect with Web Service using the user data
+				// $url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
+				// if (isset($value)) {
+				// 	$requestHeaders = ['Accept: application/json',
+				// 		'Content-Type: application/json', 
+				// 		"Value: $value"];
+				// }
+				// else {
+				// 	$requestHeaders = ['Accept: application/json',
+				// 		'Content-Type: application/json', 
+				// 		"Value: "];
+				// }
 				
-				// $data = ['category' => $category, 
-				// 		 'value' => $value];
+				// // $data = ['category' => $category, 
+				// // 		 'value' => $value];
 
-				$curl = curl_init();
+				// $curl = curl_init();
 
-				curl_setopt($curl, CURLOPT_URL, $url);
-				curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
+				// curl_setopt($curl, CURLOPT_URL, $url);
+				// curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
+				// // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				// // curl_setopt($curl, CURLOPT_POST, true);
+				// // curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+				// // curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+				// // curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 				// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				// curl_setopt($curl, CURLOPT_POST, true);
-				// curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-				// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-				// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-				$responseData = curl_exec($curl);
-				echo $responseData;
+				// $responseData = curl_exec($curl);
+				// echo $responseData;
 
-				curl_close($curl);
+				// curl_close($curl);
 			} else {
 				$this->view('HomeView');
 			}
