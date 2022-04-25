@@ -7,8 +7,16 @@
 	use DatePeriod;
 	use DateInterval;
 
+	/* 
+	This controller takes care of the client-side methods.
+	It includes a register function, a login function, a logout function, and an index,
+	where the requests are made.
+	*/ 
 	class ClientController extends \WebServicesFinalProject\Client\core\Controller {
 
+		/*
+		To register as a new client
+		*/
 		public function register() {
 			if (isset($_POST['registerB'])) {
 				// Verify that all fields are filled
@@ -65,7 +73,10 @@
 				$this->view('RegisterView'); 
 			}
 		}
-
+		
+		/*
+		To allow a client to log in
+		*/
 		public function login() {
 			if (isset($_POST['loginB'])) {
 				// to check if credentials correspond to a client
@@ -74,9 +85,8 @@
    
 			   // check if credentials are also valid
 			   if($client != false && password_verify($_POST['password'], $client->passwordHash) ) {
-				   $_SESSION['clientID'] = $client->clientID;
-				   header('location: /WebServicesFinalProject/Client/ClientController/index');
-				   //header('location:/ClientController/index');
+				   	$_SESSION['clientID'] = $client->clientID;
+					header('location:/WebServicesFinalProject/Client/ClientController/index');
 				}
    
 			   // if credentials are invalid, send error message
@@ -88,14 +98,18 @@
 			   $this->view('LoginView');
 		}
 
+		/*
+		To allow a client to log out
+		*/
 		public function logout() {
 			session_destroy();
 			header('location:/WebServicesFinalProject/Client/ClientController/login');
-			//header('location:/ClientController/login');
 		}
 
-		// Method to convert response headers to an array
-		// Code from: https://blog.devgenius.io/how-to-get-the-response-headers-with-curl-in-php-2173b10d4fc5
+		/*
+		Method to convert response headers to an array
+		 Code from: https://blog.devgenius.io/how-to-get-the-response-headers-with-curl-in-php-2173b10d4fc5
+		*/
 		function headersToArray($str)
 		{
 			$headers = array();
@@ -115,6 +129,12 @@
 			return $headers;
 		}
 
+		/*
+		To allow clients to place requests
+		There are two requests:
+			- First to obtain a token, used for authentication
+			- Second to place a country search request
+		*/
 		public function index() {
 			if (isset($_POST['searchB'])) {
 				// ---------------------- FIRST REQUEST -------------------
@@ -226,6 +246,7 @@
 					$requestHeaders = ['Accept: application/json',
 						'Content-Type: application/json',
 						"Authorization: Bearer $token", 
+						"ClientID: $clientId",
 						"Category: $category",
 						"Value: $value"];
 				}
@@ -233,6 +254,7 @@
 					$requestHeaders = ['Accept: application/json',
 						'Content-Type: application/json', 
 						"Authorization: Bearer $token",
+						"ClientID: $clientId",
 						"Category: $category"];
 				}
 				
@@ -253,12 +275,5 @@
 				$this->view('HomeView');
 			}
 		}
-		public function debug_to_console($data) {
-            $output = $data;
-            if (is_array($output))
-                $output = implode(',', $output);
-        
-            echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-        }
 	}
 ?>

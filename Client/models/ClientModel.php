@@ -4,6 +4,9 @@ namespace WebServicesFinalProject\Client\models;
 
 require("C:\\xampp\\htdocs\\WebServicesFinalProject\\Client\\core\\ConnectionManager.php");
 
+/*
+This class is the model for Clients (so it's used to create and manipulate clients)
+*/
 class ClientModel extends \core\ConnectionManager {
 
     public $clientName;
@@ -15,10 +18,16 @@ class ClientModel extends \core\ConnectionManager {
     public $licenseEndDate;
     public $APIKey;
 
+    /*
+    Constructor coming from the Connection Manager
+    */
     public function __construct() {
         parent::__construct();
     }
 
+    /*
+    To insert a new client into the database
+    */
     public function insert() {
         $this->passwordHash = password_hash($this->password, PASSWORD_DEFAULT);
         
@@ -36,7 +45,9 @@ class ClientModel extends \core\ConnectionManager {
                     'APIKey' => $this->APIKey]);
     }
 
-    // Retrieve client by email
+    /*
+    To retrieve a client by their email
+    */
     public function getByEmail($email) {
         $SQL = "SELECT * FROM client WHERE email = :email";
         $statement = self::$_connection->prepare($SQL);
@@ -46,7 +57,9 @@ class ClientModel extends \core\ConnectionManager {
         return $statement->fetch();
     }
 
-    // Check if account exists
+    /*
+    To check if a client already exists based on the email used
+    */
     public function emailExists($email) {
         $SQL = "SELECT COUNT(*) AS count FROM client WHERE email = :email";
         $statement = self::$_connection->prepare($SQL);
@@ -54,7 +67,9 @@ class ClientModel extends \core\ConnectionManager {
         return $statement->fetch();
     }
 
-    // Retrieve client by id
+    /*
+    To retrieve a client by their ID
+    */
     public function getById($clientID) {
         $SQL = "SELECT * FROM client WHERE clientID = :clientID";
         $statement = self::$_connection->prepare($SQL);

@@ -1,7 +1,11 @@
 <?php
 
-namespace Assignment\webservice\core; 
+namespace WebServicesFinalProject\WebService\core; 
 
+/*
+This class is used to initialize the first page of the web server.
+It is also used to fetch other classes and their methods.
+*/
 class App { 
 	private $controller = 'Assignment3\webservice\controllers\CompanyController';
 	private $method = 'index';

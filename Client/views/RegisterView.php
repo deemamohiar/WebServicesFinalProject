@@ -1,3 +1,4 @@
+<!-- This is the register page for a client. This is where they can create an account -->
 <html>
 <head>
     <title>Register</title>

@@ -1,3 +1,4 @@
+<!-- This is the home page of a client. This is what they see when they log in -->
 <html>
     <head>
         <title>Home</title>
@@ -57,11 +58,60 @@
                             var select = document.getElementById("category");
                             document.getElementById("category").addEventListener('change', function() {
                                 console.log(this.value);
-                                if (this.value != 'All Country Data') {
-                                    document.getElementById("value").disabled = false;
-                                }
-                                else {
+                                if (this.value == 'All Country Data') {
                                     document.getElementById("value").disabled = true;
+                                    document.getElementById("value").placeholder = "";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Country Name') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: united";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Full Country Name') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: united states";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Country Code') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: pe";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'List of Country Codes') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: col,pe,at";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Currency') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: CAD";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Language') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: german";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Capital City') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: ottawa";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Region') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: europe";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Subregion') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: south";
+                                    document.getElementById("value").value = "";
+                                }
+                                else if (this.value == 'Demonym') {
+                                    document.getElementById("value").disabled = false;
+                                    document.getElementById("value").placeholder = "Ex: peruvian";
+                                    document.getElementById("value").value = "";
                                 }
                             });
                         </script> 

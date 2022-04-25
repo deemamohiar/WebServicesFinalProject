@@ -1,3 +1,4 @@
+<!-- This is the log in page for a client. This is what users see when they first run our application-->
 <html>
 <head>
     <title>Login</title>

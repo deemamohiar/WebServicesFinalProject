@@ -1,7 +1,9 @@
 <?php
 
-namespace Assignment3\webservice\core;
-
+namespace core;
+/*
+This class is used to connect to the database.
+*/
 class ConnectionManager {
         protected static $_connection = null;
         private $host;
@@ -9,6 +11,9 @@ class ConnectionManager {
         private $password;
         private $dbname;
 
+        /*
+        Extract the information from the database configuratin file.
+        */
         function __construct() {
 
             $config = simplexml_load_file(dirname(__DIR__) . '/core/config.xml');
@@ -20,6 +25,9 @@ class ConnectionManager {
             $this->getConnection();
         }
 
+        /*
+        Provide a connection to the database
+        */
         function getConnection() {
             try {
                 self::$_connection = new \PDO("mysql:host=" . $this->host . ";dbname=" . $this->dbname, $this->user, $this->password);

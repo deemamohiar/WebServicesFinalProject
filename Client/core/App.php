@@ -2,12 +2,19 @@
 
 namespace core;
 
+/*
+This class is used to initialize the first page of our project.
+It is also used to fetch other classes and their methods.
+*/
 class App {
 
 	private $controller = 'controllers\ClientController';
 	private $method = 'login';
 	private $params = [];
 
+	/*
+	Assign the controller, methods, and parameters based on the URL
+	*/
 	public function __construct() {
 
 		$url = $this->parseURL();
@@ -46,6 +53,9 @@ class App {
 		call_user_func_array(array($this->controller, $this->method), $this->params);
 	}
 
+	/*
+	To parse the URL (so we can retrieve its data)
+	*/
 	public function parseURL() {
 		if(isset($_GET['url'])) {
 			return explode('/', 
