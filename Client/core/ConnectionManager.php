@@ -10,7 +10,7 @@ class ConnectionManager {
 	private $dbname;
 
 	public function __construct() {
-		$config = simplexml_load_file(dirname(__DIR__).'/core/config.xml');
+		$config = simplexml_load_file(dirname(__DIR__).'/database/config.xml');
 
 		$this->host = $config->host;
 		$this->user = $config->user;
