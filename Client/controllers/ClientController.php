@@ -4,7 +4,6 @@
 	require("C:\\xampp\\htdocs\\WebServicesFinalProject\\Client\\models\\ClientModel.php");
 
 	use DateTime;
-	use DatePeriod;
 	use DateInterval;
 
 	/* 
