@@ -1,4 +1,8 @@
 <?php
+// This line is so that the JWT class is recognized
+include("C:\\xampp\\htdocs\\WebServicesFinalProject\\vendor\\autoload.php");
+
+use Ahc\Jwt\JWT;
 
 class AllController {
     // input parameter will not be used in this controller, but is needed for every other one

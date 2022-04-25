@@ -157,99 +157,85 @@
 					return;
 				}
 
+				// ---------------------- SECOND REQUEST -------------------
 				
+				// First make sure value was written if category is not "All Country Data"
+				if (($_POST['category'] != 'All Country Data') && ($_POST['value'] == '')) {
+					$errorMessage = "Please input a value.";
+					$this->view('HomeView', $errorMessage);
+					return;
+				}
 
-				// $ch = curl_init();
+				// Then by storing the user data so it can be sent to web service
+				$category = $_POST['category'];
+				if (isset($_POST['value'])) {
+					$value = $_POST['value'];
+				}
 
-				// curl_setopt($ch, CURLOPT_URL, "http://localhost/WebAss1/api/client/$clientId");
-				// curl_setopt($ch, CURLOPT_HTTPHEADER, $requestHeaders);
-				// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-				// $response = curl_exec($ch);
-				// echo $response;
-				// curl_close($ch);
-
-				// // ---------------------- SECOND REQUEST -------------------
-				
-				// // First make sure value was written if category is not "All Country Data"
-				// if (($_POST['category'] != 'All Country Data') && ($_POST['value'] == '')) {
-				// 	$errorMessage = "Please input a value.";
-				// 	$this->view('HomeView', $errorMessage);
-				// 	return;
-				// }
-
-				// // Then by storing the user data so it can be sent to web service
-				// $category = $_POST['category'];
-				// if (isset($_POST['value'])) {
-				// 	$value = $_POST['value'];
-				// }
-
-				// // Update certain category names to match a controller in Web Service
-				// // In certain cases, also update "value" to match API formatting
-				// switch ($category) {
-				// 	case 'All Country Data':
-				// 		$category = 'all';
-				// 		break;
+				// Update certain category names to match a controller in Web Service
+				switch ($category) {
+					case 'All Country Data':
+						$category = 'all';
+						break;
 					
-				// 	case 'Country Name':
-				// 		$category = 'name';
-				// 		break;
+					case 'Country Name':
+						$category = 'name';
+						break;
 					
-				// 	case 'Full Country Name':
-				// 		$category = 'name';
-				// 		$value = $value . '?fullText=true';
-				// 		break;
+					case 'Full Country Name':
+						$category = 'name';
+						break;
 					
-				// 	case 'Country Code':
-				// 		$category = 'alpha';
-				// 		break;
+					case 'Country Code':
+						$category = 'alpha';
+						break;
 					
-				// 	// ---------------TO DO LATER----------------
-				// 	// case 'List of Country Codes':
-				// 	// 	$category = 'alpha';
-				// 	// 	$
-				// 	// 	break;
+					case 'List of Country Codes':
+						$category = 'alpha';
+						break;
 					
-				// 	case 'Language':
-				// 		$category = 'lang';
-				// 		break;
+					case 'Language':
+						$category = 'lang';
+						break;
 					
-				// 	case 'Capital City':
-				// 		$category = 'capital';
-				// 		break;
-				// }
+					case 'Capital City':
+						$category = 'capital';
+						break;
+				}
 
-				// // Connect with Web Service using the user data
-				// $url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
-				// if (isset($value)) {
-				// 	$requestHeaders = ['Accept: application/json',
-				// 		'Content-Type: application/json', 
-				// 		"Value: $value"];
-				// }
-				// else {
-				// 	$requestHeaders = ['Accept: application/json',
-				// 		'Content-Type: application/json', 
-				// 		"Value: "];
-				// }
+				// Connect with Web Service using the user data
+				$url = "http://localhost/WebServicesFinalProject/WebService/api/$category/";
+				if (isset($value)) {
+					$requestHeaders = ['Accept: application/json',
+						'Content-Type: application/json',
+						"Authorization: Bearer $token", 
+						"Value: $value"];
+				}
+				else {
+					$requestHeaders = ['Accept: application/json',
+						'Content-Type: application/json', 
+						"Authorization: Bearer $token",
+						"Value: "];
+				}
 				
 				// // $data = ['category' => $category, 
 				// // 		 'value' => $value];
 
-				// $curl = curl_init();
+				$curl = curl_init();
 
-				// curl_setopt($curl, CURLOPT_URL, $url);
-				// curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
-				// // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-				// // curl_setopt($curl, CURLOPT_POST, true);
-				// // curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-				// // curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
-				// // curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				curl_setopt($curl, CURLOPT_URL, $url);
+				curl_setopt($curl, CURLOPT_HTTPHEADER, $requestHeaders);
 				// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+				// curl_setopt($curl, CURLOPT_POST, true);
+				// curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+				// curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+				// curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
-				// $responseData = curl_exec($curl);
-				// echo $responseData;
+				$responseData = curl_exec($curl);
+				echo $responseData;
 
-				// curl_close($curl);
+				curl_close($curl);
 			} else {
 				$this->view('HomeView');
 			}
