@@ -1,13 +1,20 @@
 <?php
 
-// This line is so that the JWT class is recognized
-include("C:\\xampp\\htdocs\\WebServicesFinalProject\\vendor\\autoload.php");
-
-use Ahc\Jwt\JWT;
-
 class NameController {
     public function index($userInput) {
-        
+        // Start by checking if token exists
+        $requestHeaders = apache_request_headers();
+        if (!isset($requestHeaders['Authorization'])) {
+            $errorMessage = "WWW-Authenticate: Bearer realm=\"api/auth\", 
+                            error=\"Access Denied\", 
+                            error_description=\"Invalid access token: null\"";
+            echo "HTTP/1.1 401 Unauthorized";
+            echo "<br>";
+            echo $errorMessage;
+            return;
+        }
+
+        // If it does, proceed
         $url = "https://restcountries.com/v3.1/name/$userInput";
 
         $curl = curl_init($url);
