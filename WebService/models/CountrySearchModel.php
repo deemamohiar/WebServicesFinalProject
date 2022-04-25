@@ -1,8 +1,8 @@
 <?php 
 
-namespace WSFinalProj\models;
+namespace WebServicesFinalProject\WebService\models;
 
-class CountrySearchModel extends \WSFinalProj\core\ConnectionManager {
+class CountrySearchModel extends \core\ConnectionManager {
     public $clientID;
     public $searchDate;
     public $searchCompletionDate;
@@ -14,11 +14,9 @@ class CountrySearchModel extends \WSFinalProj\core\ConnectionManager {
     }
 
     public function insert() {
-        $SQL = "INSERT INTO countrySearch (clientID, 
-                searchDate, searchCompletionDate, userInput,
-                searchResult) VALUES (:clientID, 
-                :searchDate, :searchCompletionDate, :userInput, 
-                :searchResult)";
+        $SQL = "INSERT INTO countrySearch (clientID, searchDate, searchCompletionDate, userInput, searchResult)  
+        VALUES (:clientID, :searchDate, :searchCompletionDate, :userInput, :searchResult)";
+
         $statement = self::$_connection->prepare($SQL);
         $statement->execute(['clientID'=>$this->clientID,
                     'searchDate'=>$this->searchDate,
