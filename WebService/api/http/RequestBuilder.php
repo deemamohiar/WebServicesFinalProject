@@ -20,10 +20,6 @@ require_once("Request.php");
             
             if (isset($_GET[$key])) {
                 $this->request->urlParams = $_GET;
-
-                // // I'm guessing we will have to edit these in future time
-                // echo "Parse URL: " . "<br>";
-                // var_dump($this->parseURL());
             }
 
             if ($this->request->method == "POST") {
