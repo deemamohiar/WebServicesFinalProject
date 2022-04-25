@@ -26,6 +26,10 @@ require_once("Request.php");
                 // var_dump($this->parseURL());
             }
 
+            if ($this->request->method == "POST") {
+				$this->request->payload = file_get_contents('php://input');
+			}
+
             return $this->request;
         }
 

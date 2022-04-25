@@ -1,5 +1,4 @@
 <?php
-
     namespace WebServicesFinalProject\WebService\api;
 
     require_once(dirname(__DIR__) . "\\api\\http\\RequestBuilder.php");
@@ -23,7 +22,6 @@
             $keys = array_keys($this->request->urlParams);
             // Determine which controller to load based on URL params
             if (file_exists(dirname(__DIR__) . '/controllers/' . $keys[0] . 'Controller.php')) {
-
                 if (class_exists($keys[0] . 'Controller')) {
                     $this->controller = new ($keys[0] . 'Controller');
                     switch ($this->request->method) {
@@ -61,7 +59,7 @@
         public function post($controllerName) {
             switch ($controllerName) {
 				case "auth":
-					$token = $this->controller->authenticateClient();
+					$token = $this->controller->authenticateClient($this->request->payload);
 					break;
 			}
         }
