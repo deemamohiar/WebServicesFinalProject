@@ -30,23 +30,6 @@
                 </tr>
             </table>
             
-            <!-- For now let's leave this be because we have no clue how to 
-            to API keys or license numbers or wtv -->
-            <!-- <h3>API </h3> -->
-            <!-- <table cellpadding="5px">
-                <tr style="height: 30px;">
-                    <td><p>Street Address:</p></td>
-                    <td><input type='text' name='street_address'></td>
-                </tr>
-                <tr style="height: 30px;">
-                    <td><p>City:</p></td>
-                    <td><input type='text' name='city'></td>
-                </tr>
-                <tr style="height: 30px;">
-                    <td><p>Postal Code:</p></td>
-                    <td><input type='text' name='postal_code'></td>
-                </tr>
-            </table> -->
             <br>
             <input id="submit" type='submit' name='registerB' value='Register'>
 
