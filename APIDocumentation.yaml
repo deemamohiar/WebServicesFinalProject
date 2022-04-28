@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: 'Country Search API'
+  version: '1.0'
+paths:
+  'api/CountrySearch/':
+    get:
+      responses:
+        '200':
+          description: 'Get information about a country based on values sent over in headers.'
+          parameters:
+            - in: header
+              name: Category
+              required: true
+              schema:
+                type: String
+              description: The category from which the client is doing a search
+            - in: header
+              name: Value
+              description: The value from which the client is doing a search
+              schema:
+                type: String
+              required: true
+  'api/auth/':
+    post:
+      responses:
+        '200':
+          description: 'Authenticate a client by first verifying their API key and license number'
+          parameters:
+            - in: body
+              name: APIKey
+              description: The client's API key
+              schema:
+                type: String
+              required: true
+            - in: body
+              name: licenseNumber
+              description: The client's licenseNumber
+              schema:
+                type: String
+              required: true
+            - in: body
+              name: licenseEndDate
+              description: The client's license expiration date
+              schema:
+                type: String
+              required: true
