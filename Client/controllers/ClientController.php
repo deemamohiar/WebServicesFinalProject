@@ -202,11 +202,6 @@
 					case 'Country Name':
 						$category = 'name';
 						break;
-					
-					case 'Full Country Name':
-						$category = 'fullname';
-						break;
-					
 					case 'Country Code':
 						$category = 'code';
 						break;

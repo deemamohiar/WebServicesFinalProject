@@ -38,7 +38,6 @@
                                 <option disabled>--Select a Category--</option>
                                 <option>All Country Data</option>
                                 <option>Country Name</option>
-                                <option>Full Country Name</option>
                                 <option>Country Code</option>
                                 <option>List of Country Codes</option>
                                 <option>Currency</option>
@@ -66,11 +65,6 @@
                                 else if (this.value == 'Country Name') {
                                     document.getElementById("value").disabled = false;
                                     document.getElementById("value").placeholder = "Ex: united";
-                                    document.getElementById("value").value = "";
-                                }
-                                else if (this.value == 'Full Country Name') {
-                                    document.getElementById("value").disabled = false;
-                                    document.getElementById("value").placeholder = "Ex: canada";
                                     document.getElementById("value").value = "";
                                 }
                                 else if (this.value == 'Country Code') {

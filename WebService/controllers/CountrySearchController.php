@@ -3,6 +3,12 @@
 require("C:\\xampp\\htdocs\\WebServicesFinalProject\\WebService\\core\\Controller.php");
 require("C:\\xampp\\htdocs\\WebServicesFinalProject\\WebService\\models\\CountrySearchModel.php");
 
+require("C:\\xampp\\htdocs\\WebServicesFinalProject\\vendor\\autoload.php");
+
+
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
 /* 
 This controller takes care of the web server-side methods.
 It includes an index function where authentication is verified, as well as a
@@ -74,11 +80,6 @@ class CountrySearchController {
             case 'name':
                 $url = "https://restcountries.com/v3.1/name/$input";
                 break;
-            case 'fullname':
-                // $input = str_replace('%20', '', $input);
-                echo $input;
-                $url = "https://restcountries.com/v3.1/lang/$input?fullText=true";
-                break;
             case 'region':
                 $url = "https://restcountries.com/v3.1/region/$input";
                 break;
@@ -148,6 +149,7 @@ class CountrySearchController {
     If response contains multiple countries, use this formatting
     */
     public function printAllData($responseArr) {
+
         // Separate the countries from each other
         foreach($responseArr as $country) {
             $countryNames = $country['name'];
@@ -156,9 +158,18 @@ class CountrySearchController {
             // Set header for the country
             echo "<p style='text-align:center; font-size:22px; color:blue;'>====================$officialCountryName====================</p>";
             
+            // check if Canada was retrieved in search
+            if (in_array("Canada", $countryNames)) {
+                // get flag link
+                $presignedUrl = $this->getFlagFromAWS();
+                // display flag link
+                echo "<a href=$presignedUrl>View Canada's Flag</a>"; 
+                echo "<br>";
+            }
+
             // Go through each names for the country
             echo "<p style='font-size:20px;'><b><u>Names:</u></b></p>";
-    
+
             foreach($countryNames as $countryName) {
                 if (!is_array($countryName)) {
                     echo $countryName;
@@ -167,16 +178,7 @@ class CountrySearchController {
                 else {
                     echo "<br>";
                     echo "<p style='font-size:20px;'><b><u>Native Names</b> <i>(name in native languages):</u></i></p>";
-                    // WHAT THE ACTUAL F*** MAKE UP UR GODDAMN MIND UR EITHER A STRING OR NOT. YOU CANT CHANGE UR MIND FROM ONE LINE TO ANOTHER 
-                    // THATS NOT HOW THE WORLD WORKS FIX YOURSELF U SICK BASTARD WHOEVER INVENTED U NEEDS TO GO TO JAIL
-                    // I WILL GO TO THE GYM WORKOUT FOR 2 YEARS AND BEAT THE CRAP OUT OF THEM
-                    // WHO LET U BE THIS DAFT. STOP WASTING THIS WORLD'S OXYGEN U STUPID PIECE OF USELESS CRAP.
-                    // im calm.
-                    // gn. 
-                    // was trynna print countryName to see what it gives and says cant echo an array
-                    // echo $countryName;
-                    // was trying to get rid of duplicate values so Canada doesnt get printed 4 frk times, but frk says countryName isnt an array??????????????????????
-                    // $countryName = array_unique($countryName);
+
                     foreach($countryName as $nativeNames) {
                         foreach($nativeNames as $nativeName) {
                             echo $nativeName;
@@ -496,6 +498,46 @@ class CountrySearchController {
         }
         else {
             echo "---";
+        }
+    }
+
+    /*
+    Retrieves a link to the Canadian flag from CDN storage
+    */
+    public function getFlagFromAWS() {
+        $s3 = new S3Client([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'credentials' => [
+                'key'    => 'AKIAUTZKO3SNYPVE6ILQ',
+                'secret' => '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'
+            ]
+        ]);
+        
+        $bucket = 'cnkbucket';
+        $keyname = 'flagCA.jpg';
+        
+        try {
+            // Get the object.
+            $result = $s3->getObject([
+                'Bucket' => $bucket,
+                'Key'    => $keyname
+            ]);
+    
+            // get the link
+            $cmd = $s3->getCommand('GetObject', [
+                'Bucket' => $bucket,
+                'Key' => $keyname
+            ]);
+            
+            $request = $s3->createPresignedRequest($cmd, '+1 minute');
+            
+            // Get the actual presigned-url
+            $presignedUrl = (string)$request->getUri();
+        
+            return $presignedUrl;
+        } catch (S3Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
         }
     }
 }
