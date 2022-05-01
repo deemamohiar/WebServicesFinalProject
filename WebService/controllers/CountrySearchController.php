@@ -173,7 +173,9 @@ class CountrySearchController {
                     // WHO LET U BE THIS DAFT. STOP WASTING THIS WORLD'S OXYGEN U STUPID PIECE OF USELESS CRAP.
                     // im calm.
                     // gn. 
+                    // was trynna print countryName to see what it gives and says cant echo an array
                     // echo $countryName;
+                    // was trying to get rid of duplicate values so Canada doesnt get printed 4 frk times, but frk says countryName isnt an array??????????????????????
                     // $countryName = array_unique($countryName);
                     foreach($countryName as $nativeNames) {
                         foreach($nativeNames as $nativeName) {
