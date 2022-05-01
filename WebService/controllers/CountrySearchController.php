@@ -58,6 +58,8 @@ class CountrySearchController {
                 $url = "https://restcountries.com/v3.1/alpha/$input";
                 break;
             case 'listCodes':
+                // get rid of spaces so API can return right data
+                $input = str_replace('%20', '', $input);
                 $url = "https://restcountries.com/v3.1/alpha?codes=$input";
                 break;
             case 'capital':
@@ -73,6 +75,8 @@ class CountrySearchController {
                 $url = "https://restcountries.com/v3.1/name/$input";
                 break;
             case 'fullname':
+                // $input = str_replace('%20', '', $input);
+                echo $input;
                 $url = "https://restcountries.com/v3.1/lang/$input?fullText=true";
                 break;
             case 'region':
@@ -107,7 +111,8 @@ class CountrySearchController {
         }
 
         // if data was retrieved, display it
-        echo "<a style= 'text-decoration: none;' 'color: black;' 'text-shadow: 0px 0px 3px #a8d8ff;' 'font-family: Verdana;' 'font-size: 18px;' href='/WebServicesFinalProject/Client/ClientController/index'>Back to Home Page</a>";
+        echo "<a style= 'text-decoration: none;' 'color: black;' 'text-shadow: 0px 0px 3px #a8d8ff;' 'font-family: Verdana;' 
+        'font-size: 18px;' href='/WebServicesFinalProject/Client/ClientController/index'>Back to Home Page</a>";
         echo "<br><br>";
 
         $responseArr = (array) json_decode($response,true);
@@ -162,7 +167,14 @@ class CountrySearchController {
                 else {
                     echo "<br>";
                     echo "<p style='font-size:20px;'><b><u>Native Names</b> <i>(name in native languages):</u></i></p>";
-
+                    // WHAT THE ACTUAL F*** MAKE UP UR GODDAMN MIND UR EITHER A STRING OR NOT. YOU CANT CHANGE UR MIND FROM ONE LINE TO ANOTHER 
+                    // THATS NOT HOW THE WORLD WORKS FIX YOURSELF U SICK BASTARD WHOEVER INVENTED U NEEDS TO GO TO JAIL
+                    // I WILL GO TO THE GYM WORKOUT FOR 2 YEARS AND BEAT THE CRAP OUT OF THEM
+                    // WHO LET U BE THIS DAFT. STOP WASTING THIS WORLD'S OXYGEN U STUPID PIECE OF USELESS CRAP.
+                    // im calm.
+                    // gn. 
+                    // echo $countryName;
+                    // $countryName = array_unique($countryName);
                     foreach($countryName as $nativeNames) {
                         foreach($nativeNames as $nativeName) {
                             echo $nativeName;
