@@ -17,7 +17,7 @@
 
 ## How to Access Project
 &emsp; To access this project from your browser, please insert the WebServicesFinalProject directly into your htdocs folder. Then, in your browser, enter the following URL: 
-http://localhost/WebServicesFinalProject/Client/ClientController/
+http://localhost/WebServicesFinalProject/Client
 
 ## Gtihub Respository
 &emsp; Here's the link to our Github repository, which we have used to collaborate on this project: 
